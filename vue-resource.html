@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+		<meta charset="UTF-8">
+		<title>请求数据</title>
+		<style>
+			table,th,td{
+				border: 1px solid #CCCCCC;
+				border-collapse: collapse;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app">
+			<input type="button" value="请求" @click="getInfo" />
+			<!--<input type="button" value="post请求" @click="postInfo" />-->
+				<label>
+		id:<input type="text" v-model="id"/>
+		url:<input type="text" v-model="url" @keyup.enter="add">
+		<button type="button" value="添加" @click="add">添加</button>
+		<input type="button" value="展示" @click="show" />
+		搜索关键字：<input type="search" v-model="keywords"/>
+		<table>
+			<thead >
+				<tr>
+					<th>id</th>
+					<th>url</th>
+					
+					<th>forks_url</th>
+					<th>operate</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  v-for="item in car" :key="item.id">
+					<td>{{item.id}}</td>
+					<td>{{item.url}}</td>
+					
+					<td>{{item.forks_url}}</td>
+					<td><a href="#" @click.prevent="del(item.id)">删除</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</label>
+		</div>
+		<script>
+//		Vue.http.options.root='http://a.itying.com/';
+		Vue.http.options.root='https://api.github.com/';
+		Vue.http.options.emulateJSON=true;
+		
+			new Vue({
+				el:'.app',
+				data:{
+					 id:'',
+					url:'',
+					
+					 keywords:'',
+					 forks_url:'',
+    car:[
+    {id:1,name:'奥迪',ctime:new Date()},
+    {id:2,name:'宝马',ctime:new Date()}
+    ]
+  	},
+  	created(){
+						this.show()
+					},
+				methods:{
+					getInfo(){
+						this.$http.get('api/productlist').then(function(result){
+							console.log(result.body)
+						})
+					},
+					show(){
+						this.$http.post('users/octocat/gists',{}).then(result=>{
+							console.log(result.body)
+							var result=result.body
+							this.car=result
+						})
+					},
+					
+					add(){
+						this.$http.post('users/octocat/gists',{url:this.url},{emulateJSON:true})
+						.then((response)=>{
+							this.show()
+						})
+			
+		},
+		del(id){
+//		this.car.some((item,i)=>{
+//			if(item.id==id){
+//				this.car.splice(i,1)
+//				return true;
+//			}
+//		})
+		this.$http.get('users/octocat/gists/：'+id)
+		.then((response)=>{
+			this.show()
+		})
+	},
+//	search(keywords){
+//		var newList=[]
+//		this.car.forEach((item)=>{
+//			if(item.name.indexOf(keywords)!=-1){
+//				newList.push(item);
+//				
+//			}
+//		})
+//		return newList
+//	}
+//					postInfo(){
+//						this.$http.post('http://a.itying.com/api/productlist',{},{}).then(result=>{
+//							console.log(result.body)
+//						})
+//					}
+				}
+			
+	})
+		</script>
+	</body>
+</html>

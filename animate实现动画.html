@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+		<meta charset="UTF-8">
+		<title>vue中使用动画</title>
+		
+	</head>
+	<body>
+		<div id="app">
+			<transition enter-active-class="zoomInDown" leave-active-class="zoomOutDown" :duration="1000"><h3 v-if="flag" class="animated">我是一个h3</h3></transition>
+			<input type="button" value="toggle" @click="flag=!flag" />
+		</div>
+		<script>
+			new Vue({
+				el:'#app',
+				data:{
+					flag:false
+				}	
+			})
+		</script>
+	</body>
+</html>

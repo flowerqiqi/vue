@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<meta charset="UTF-8">
+		<title>小例子</title>
+	</head>
+	<body>
+		<div id="app">
+			<h3 ref="hh">我是h3</h3>
+			<input type="button" value="点击" @click="myh3" />
+			<com1 ref="zi"></com1>
+		</div>
+		<template id="tem1">
+			<div></div>
+		</template>
+		<script>
+		var com1={
+			template:'#tem1',
+			data:function(){
+				return {
+					msg:'子组件信息'
+				}
+			},
+			methods:{
+				show(){
+					console.log('子组件输出')
+				}
+			}
+		}
+			new Vue({
+				el:'#app',
+				data:{
+					
+				},
+				components:{
+					com1
+				},
+				methods:{
+					myh3(){
+						console.log(this.$refs.zi.msg)
+						console.log(this.$refs.zi.show())
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
+

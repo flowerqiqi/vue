@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<script src="https://cdn.bootcss.com/vue-router/3.0.6/vue-router.js"></script>
+		<meta charset="UTF-8">
+		<title>keyup事件与watch事件</title>
+	</head>
+	<body>
+		<!--<div id="app">
+			<input type="text" v-model="first" @keyup="getfull"/>+
+			<input type="text" v-model="last" @keyup="getfull"/>=
+			<input type="text" v-model="full" />
+		</div>
+		<script>
+		
+		
+			new Vue({
+				el:'#app',
+				data:{
+					first:'',
+					last:'',
+					full:''
+				},
+			methods:{
+				getfull(){
+					this.full=this.first+'-'+this.last
+				}
+			}
+			})
+		</script>-->
+		
+		<div id="app">
+			<input type="text" v-model="first"/>+
+			<input type="text" v-model="last"/>=
+			<input type="text" v-model="full" />
+		</div>
+		<script>
+		
+		
+			new Vue({
+				el:'#app',
+				data:{
+					first:'',
+					last:'',
+					full:''
+				},
+			watch:{
+				'first':function(){
+					this.full=this.first+'-'+this.last
+				},
+//				'last':function(){
+//					this.full=this.first+'-'+this.last
+//				}
+				'last':function(newVal,oldVal){
+					this.full=this.first+'-'+newVal
+				}
+			}
+			})
+		</script>
+	</body>
+</html>
+

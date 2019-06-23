@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<meta charset="UTF-8">
+		<title>组件中的data</title>
+	</head>
+	<body>
+		<!--<div id="app">  只能实现两个组件切换
+			<a href="#" @click.prevent="flag=true">登录</a>
+			<a href="#" @click.prevent="flag=false">注册</a>
+			<com1 v-if="flag"></com1>
+			<com2 v-else="flag"></com2>
+		</div>
+		<script>
+		Vue.component('com1',{
+				template:'<h4>登录组件</h4>'
+			})
+		Vue.component('com2',{
+				template:'<h4>注册组件</h4>'
+		})
+			new Vue({
+				el:'#app',
+				data:{
+					flag:true
+				}
+			})
+		</script>-->
+		
+		<div id="app">
+			<a href="#" @click.prevent="conName='com1'">登录</a>
+			<a href="#" @click.prevent="conName='com2'">注册</a>
+			<a href="#" @click.prevent="conName='com3'">注销</a>
+			<component :is="conName"></component>
+		</div>
+		
+		<script>
+			Vue.component('com1',{
+				template:'<h4>登录组件</h4>'
+			})
+		Vue.component('com2',{
+				template:'<h4>注册组件</h4>'
+		})
+		Vue.component('com3',{
+				template:'<h4>注销组件</h4>'
+		})
+			new Vue({
+				el:'#app',
+				data:{
+					conName:''
+				}
+			})
+		</script>
+	</body>
+</html>

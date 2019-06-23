@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<meta charset="UTF-8">
+		<title>钩子函数实现半场动画</title>
+		<style>
+			.circle{
+				width:15px;
+				height: 15px;
+				background:#f00;
+				border-radius:50%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="toggle" @click="flag=!flag" />
+			<transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+				<div class="circle" v-show="flag"></div>
+			</transition>
+		</div>
+		<script>
+			new Vue({
+				el:'#app',
+				data:{
+					flag:false
+				},
+				methods:{
+					beforeEnter(el){
+						el.style.transform="translate(0,0)"
+					},
+					enter(el,done){
+						el.offsetWidth
+						el.style.transform="translate(150px,450px)"
+						el.style.transition="all 1s ease"
+						done()
+					},
+					afterEnter(el){
+						this.flag=!this.flag
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

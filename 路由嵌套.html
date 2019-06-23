@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<script src="https://cdn.bootcss.com/vue-router/3.0.6/vue-router.js"></script>
+		<meta charset="UTF-8">
+		<title>路由嵌套</title>
+	</head>
+	<body>
+		<div id="app">
+		<router-link to='/account'>account</router-link>
+		<router-view></router-view>
+		</div>
+		<template id="temp1">
+			<div>
+				<h1>这是account组件</h1>
+				<router-link to='/account/login'>登录</router-link>
+				<router-link to='/account/register'>注册</router-link>
+				<router-view></router-view>
+			</div>	
+		</template>
+		<script>
+		var account={
+			template:'#temp1'
+		}
+		var login={
+			template:'<p>登录</p>'
+		}
+		var register={
+			template:'<p>注册</p>'
+		}
+		var router=new VueRouter({
+			routes:[
+			{path:'/account',component:account,
+			children:[
+			{path:'login',component:login},
+			{path:'register',component:register}
+			]}
+			]
+		})
+			new Vue({
+				el:'#app',
+				data:{
+					
+				},
+			router
+			})
+		</script>
+	</body>
+</html>
+

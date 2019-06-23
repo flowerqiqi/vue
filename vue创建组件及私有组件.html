@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue创建组件</title>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+	</head>
+	<body>
+		<!--<div id="app">   第一种创建方式
+			<my-com1></my-com1>
+		</div>
+		<script>
+			var com1=Vue.extend({
+				template:'<h3>这是用vue extend创建出来的组件</h3>'
+			})
+			Vue.component('myCom1',com1)
+			new Vue({
+				el:'#app',
+				data:{
+					
+				}	
+			})
+		</script>-->
+		
+		<!--<div class="app">   第二种创建组件的方式
+			<mycom1></mycom1>
+		</div>
+		<script>
+			Vue.component('mycom1',{
+				template:'<h3>这是通过vue.component方式创建的组件</h3>'
+			})
+			
+			new Vue({
+				el:'.app',
+				data:{}
+			})
+		</script>-->
+		
+		
+		<div id="app">
+			<mycom1></mycom1>
+		</div>
+		<div id="app2">
+			<login></login>
+		</div>
+		<template id="tem1">
+			<div>
+				<h3>这是用第三种方式创建的vue组件，有智能提示</h3>
+			</div>
+		</template>
+		<template id="tem2">
+			<div>
+				<h3>这是App2自己的私有组件</h3>
+			</div>
+		</template>
+		<script>
+			Vue.component('mycom1',{
+				template:'#tem1'
+			})
+			
+			
+			new Vue({
+				el:'#app',
+				data:{}
+			})
+			
+			new Vue({
+				el:'#app2',
+				data:{},
+				components:{
+					login:{
+						template:'#tem2'
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

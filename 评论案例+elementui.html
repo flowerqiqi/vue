@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<script src="https://cdn.bootcss.com/element-ui/2.8.2/index.js"></script>
+		<meta charset="UTF-8">
+		<title>评论列表+elementui</title>
+		<style>
+			ul{
+				list-style-type: none;
+				margin: 0px;
+				padding: 0px;
+			}
+			li{
+				border: 1px dashed #999999;
+				width: 100%;
+				margin: 10px;
+			}
+			span{
+				width: 85px;
+				height: 15px;
+				border-radius: 20%;
+				background: #CCCCCC;
+				color: #fff;
+				font-size: 12px;
+				float: right;
+				position: relative;
+				right: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<com1 @add="getson"></com1>
+		<ul>
+			<li v-for="item in list" :key="item.id">
+				{{item.comment}}
+				<span>评论人：{{item.user}}</span>
+			</li>
+		</ul>
+		</div>
+		<template id="tem1">
+			<div>
+				<label>评论人：<input type="text" v-model="user"></label>
+			<label>评论内容：<input type="text" v-model="comment"></label>
+			<button @click="myclick">提交评论</button>
+			</div>
+			
+		</template>
+		
+		<script>
+		var com1={
+			template:'#tem1',
+			data:function(){
+				return {
+					user:'',
+					comment:''
+				}
+			},
+			methods:{
+				myclick(){
+					let info={id:Date.now(),user:this.user,comment:this.comment}
+					this.$emit('add',info)
+					this.user=this.comment=''
+				}
+			}
+		}
+		
+			new Vue({
+				el:'#app',
+				data:{
+					list:[
+					{id:Date.now(),user:'李白',comment:'日照香炉生紫烟'},
+					{id:Date.now(),user:'杜甫',comment:'你说嘴巴嘟嘟'},
+					{id:Date.now(),user:'白居易',comment:'一行白鹭上青天'}
+					]
+					
+				},
+				methods:{
+					getson(data){
+						this.list.unshift(data)
+					
+					}
+				},
+				components:{
+					com1
+				}
+			})
+		</script>
+	</body>
+</html>
+

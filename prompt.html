@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>抽奖</title>
+	</head>
+	<body>
+		中奖号码：<input type="text" id="num" />
+		<button value="停" onclick="clearInterval(i)">停</button>
+		<script>
+//		window.onload=function yanzheng(){
+//			for(var i=3;i>0;i--){
+//			var num=window.prompt("请输入结果","0");
+//				if(num=="86"){
+//				alert('恭喜您中奖了!');
+//				break;
+//			}else{
+//					alert('您还有'+(i-1)+'次机会')
+//				}
+//				
+//			
+//			}
+//			
+//		}
+		var arr=[1,2,3,5,6,7];
+		function num(a){
+          var b=Math.floor(Math.random()*a.length);
+			var x=arr[b];
+			document.getElementById('num').value=x;
+			console.log(x)
+		}
+		var i;
+		i=setInterval("num(arr)",100);
+		</script>
+</body> 
+</html>

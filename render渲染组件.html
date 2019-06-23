@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<meta charset="UTF-8">
+		<title>render渲染组件</title>
+	</head>
+	<body>
+		<div id="app">
+		</div>
+		<script>
+		var com1={
+			template:'<h2>render渲染的组件</h2>'
+		}
+			new Vue({
+				el:'#app',
+				render:function(createElements){
+					return createElements(com1)
+				}
+			})
+		</script>
+	</body>
+</html>
+

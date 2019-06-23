@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<script src="https://cdn.bootcss.com/vue-router/3.0.6/vue-router.js"></script>
+		<meta charset="UTF-8">
+		<title>路由的基本配置</title>
+		<style>
+			.router-link-active{
+				font-size: 24px;
+				font-weight: bold;
+				color: #FFC0CB;
+			}
+			.myclass{
+				font-size: 24px;
+				font-weight: bold;
+				color: #FF0000;
+			}
+			.v-enter,.v-leave-to{
+				opacity: 0;
+				transform: translateX(140px);
+			}
+			.v-enter-active,.v-leave-active{
+				transition: all 0.3s ease;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<router-link to='/login?id=10&name=zs' tag="span">登录</router-link>
+			<router-link to='/register/10/ls'>注册</router-link>
+			<transition mode="out-in">
+				<router-view></router-view>
+			</transition>
+			
+		</div>
+		<script>
+		var login={
+			template:'<h2>登录组件---{{$route.query.id}}----{{$route.query.name}}</h2>',
+			
+				created(){
+					console.log(this.$route.query.id)
+				}
+			
+		}
+		var register={
+			template:'<h2>注册组件---{{$route.params.id}}----{{$route.params.name}}</h2>'
+		}
+		
+		var routerObj=new VueRouter({
+			routes:[
+			{path:'/',redirect:'/login'},
+			{path:'/login',component:login},
+			{path:'/register/:id/:name',component:register}
+			],
+			linkActiveClass:'myclass'
+		})
+			new Vue({
+				el:'#app',
+				data:{
+					
+				},
+				router:routerObj
+			})
+		</script>
+	</body>
+</html>
+

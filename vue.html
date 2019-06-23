@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			table,th,td{
+				border: 1px solid #CCCCCC;
+				border-collapse: collapse;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="feng">
+			<label>
+		id:<input type="text" v-model="id"/>
+		name:<input type="text" v-model="name" @keyup.enter="add">
+		<button type="button" value="添加" @click="add">添加</button>
+		搜索关键字：<input type="search" v-focus v-color="'blue'" v-model="keywords"/>
+		<table>
+			<thead >
+				<tr>
+					<th>id</th>
+					<th>name</th>
+					<th>ctime</th>
+					<th>operation</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  v-for="item in search(keywords)" :key="item.id">
+					<td>{{item.id}}</td>
+					<td>{{item.name}}</td>
+					<td>{{item.ctime | timeop('')}}</td>
+					<td><a href="#" @click.prevent="del(item.id)">删除</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</label>
+		</div>
+		<div class="feng2">{{mas}}</div>
+		<script>
+		Vue.directive('focus',{
+			bind:function (el){
+				
+			},
+			inserted:function(el){
+				el.focus()
+			},
+			updated:function(){
+				
+			}
+		})
+		
+		Vue.directive('color',{
+			bind:function(el,binding){
+				el.style.color=binding.value
+				console.log(binding.value);
+				console.log(binding.expression);
+			}
+		})
+		
+		Vue.config.keyCodes.f2=113
+		Vue.filter('timeop',function(datastr,pattern){
+			var d=new Date(datastr);
+			
+			var y=d.getFullYear();
+			var mm=d.getMonth()+1;
+			var dd=d.getDate();
+			var h=d.getHours();
+			var m=d.getMinutes();
+			var s=d.getSeconds();
+			
+			return `${y}-${mm}-${dd} ${h}:${m}:${s}`
+			
+		})
+			new Vue({
+				el:'.feng',
+				data:{
+					 id:'',
+					 name:'',
+					 keywords:'',
+    car:[
+    {id:1,name:'奥迪',ctime:new Date()},
+    {id:2,name:'宝马',ctime:new Date()}
+    ]
+  	},
+  	methods:{
+		add(){
+			this.car.push({id:this.id,name:this.name,ctime:new Date()})
+			this.id=''
+			this.name=''
+		},
+		del(id){
+//		this.car.some((item,i)=>{
+//			if(item.id==id){
+//				this.car.splice(i,1)
+//				return true;
+//			}
+//		})
+		var index=this.car.findIndex(item=>{
+			if(item.id== id){
+				
+				return true;
+			}
+		})
+		this.car.splice(index,1)
+	},
+	search(keywords){
+		var newList=[]
+		this.car.forEach((item)=>{
+			if(item.name.indexOf(keywords)!=-1){
+				newList.push(item);
+				
+			}
+		})
+		return newList
+	}
+},
+filters:{
+	timeop:function(datastr){
+						var d=new Date(datastr);
+			
+			var y=d.getFullYear();
+			var mm=(d.getMonth()+1).toString().padStart(2,'0');
+			var dd=d.getDate().toString().padStart(2,'0');
+			var h=d.getHours();
+			var m=d.getMinutes();
+			var s=d.getSeconds();
+			
+			return `${y}-${mm}-${dd} ${h}:${m}:${s}~~~~~~`
+			}
+}
+			})
+			
+			new Vue({
+				el:'.feng2',
+				data:{
+					mas:'nihao'
+				}
+				
+			
+					
+				
+			})
+		</script>
+	</body>
+</html>

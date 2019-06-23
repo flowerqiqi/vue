@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+		<meta charset="UTF-8">
+		<title>组件中的data</title>
+	</head>
+	<body>
+		<div id="app">
+			<com2 @func="show"></com2>
+		</div>
+		<template id="tem1">
+		<div>
+			<h3>我是子组件</h3>
+			<input type="button" value="触发父方法"  @click="myclick"/>
+		</div>
+		</template>
+		<script>
+		
+		var com2={
+			template:'#tem1',
+			data:function(){
+				return {
+					msg:{name:'lily',age:17}
+				}
+			},
+			methods:{
+				myclick(){
+					this.$emit('func',this.msg)
+				}
+			}
+		}
+		
+			new Vue({
+				el:'#app',
+				data:{
+					msg:'我是父组件中的msg',
+					msgfromson:null
+				},
+				methods:{
+					show(data){
+						this.msgfromson=data
+						console.log(data)
+					}
+				},
+				components:{
+					com2
+				}
+			})
+		</script>
+	</body>
+</html>
+
